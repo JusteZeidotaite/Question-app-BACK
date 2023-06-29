@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 const bodyParser = require("body-parser");
-// const ticketRouter = require("./routes/ticket");
-// const user = require("./routes/user");
+
+// const summaryCardRouter = require("./routes/summary");
+const questionGroupRouter = require("./api/routes/question");
+const user = require("./api/routes/user");
 require("dotenv").config();
 const mongoose = require("mongoose");
 app.use(cors());
@@ -11,8 +13,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use(ticketRouter);
-// app.use(user);
+// app.use(summaryCardRouter);
+app.use(questionGroupRouter);
+app.use(user);
 
 mongoose
   .connect(process.env.MONGO_CONNECTION)
