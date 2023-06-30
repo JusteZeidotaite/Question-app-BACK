@@ -3,7 +3,7 @@ const app = express();
 var cors = require("cors");
 const bodyParser = require("body-parser");
 
-// const summaryCardRouter = require("./routes/summary");
+const answerRouter = require("./api/routes/answer");
 const questionGroupRouter = require("./api/routes/question");
 const user = require("./api/routes/user");
 require("dotenv").config();
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use(summaryCardRouter);
+app.use(answerRouter);
 app.use(questionGroupRouter);
 app.use(user);
 
