@@ -7,6 +7,7 @@ module.exports.INSERT_QUESTION = async (req, res) => {
     id: uniqid(),
     creationDate: new Date(),
     questionText: req.body.questionText,
+    answersIds: []
    
   });
 
