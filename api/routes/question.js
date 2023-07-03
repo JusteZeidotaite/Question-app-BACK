@@ -9,7 +9,7 @@ const {
 } = require("../controllers/question");
 
 router.post("/question", authMiddleware, INSERT_QUESTION);
-router.get("/questions", authMiddleware, GET_ALL_QUESTIONS);
+router.get("/questions",  GET_ALL_QUESTIONS);
 router.delete("/questions/:questionId", authMiddleware, DELETE_QUESTION_BY_ID);
 
 

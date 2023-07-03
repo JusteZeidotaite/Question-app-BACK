@@ -25,20 +25,30 @@ module.exports.POST_ANSWER_BY_QUESTION_ID = async (req, res) => {
 
 
 module.exports.GET_ANSWERS_BY_QUESTION_ID = async (req, res) => {
-  const aggregatedQuestionsData = await QuestionModel.aggregate([
-    {
-      $lookup: {
-        from: "answers",
-        localField: "answersIds",
-        foreignField: "id",
-        as: "question_answers",
-      },
-    },
-    { $match: { id: req.params.questionId } },
-  ]).exec();
+  const questionId = req.params.questionId;
 
-  res.status(200).json({ response: aggregatedQuestionsData });
+  try {
+    const aggregatedQuestionsData = await QuestionModel.aggregate([
+      {
+        $match: { id: questionId },
+      },
+      {
+        $lookup: {
+          from: "answers",
+          localField: "answersIds",
+          foreignField: "id",
+          as: "question_answers",
+        },
+      },
+    ]).exec();
+
+    res.status(200).json({ response: aggregatedQuestionsData });
+  } catch (error) {
+    console.error("Error fetching answers:", error);
+    res.status(500).json({ response: "Internal server error" });
+  }
 };
+
 
 module.exports.DELETE_ANSWER_BY_ID = async (req, res) => {
   const answerId = req.params.id;

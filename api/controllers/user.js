@@ -2,7 +2,6 @@ const uniqid = require("uniqid");
 const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 module.exports.LOGIN = async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
@@ -22,6 +21,13 @@ module.exports.LOGIN = async (req, res) => {
         { expiresIn: "12h" }
       );
 
+      // Set the token as a cookie
+      res.cookie("accessToken", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Set to true in a production environment
+        sameSite: "strict",
+      });
+
       return res
         .status(200)
         .json({ response: "You logged in", jwt: token, userId: user.id });
@@ -33,7 +39,6 @@ module.exports.LOGIN = async (req, res) => {
     res.status(500).json({ response: "ERROR, please try later" });
   }
 };
-
 module.exports.REGISTER = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(10);
