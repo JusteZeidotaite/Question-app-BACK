@@ -5,7 +5,7 @@ const taskSchema = mongoose.Schema({
   password: { type: String, required: true, min: 15 },
   email: { type: String, required: true, min: 8 },
   id: { type: String, required: true, min: 3 },
-  asked_questions_ids: { type: Array, required: false },
+  askedQuestionsIds: { type: Array, required: false },
 });
 
 module.exports = mongoose.model("User", taskSchema);

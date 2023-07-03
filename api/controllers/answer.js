@@ -8,7 +8,8 @@ module.exports.POST_ANSWER_BY_QUESTION_ID = async (req, res) => {
   const answer = new AnswerModel({
     id: uniqid(),
     answerText: req.body.answerText,
-    gainedLikesNumber: req.body.gainedLikesNumber
+    gainedLikesNumber: req.body.gainedLikesNumber,
+    questionId: req.body.questionId
   });
 
   const savedAnswer = await answer.save();

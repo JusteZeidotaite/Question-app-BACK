@@ -15,7 +15,7 @@ module.exports.INSERT_QUESTION = async (req, res) => {
       creationDate: new Date(),
       questionText: req.body.questionText,
       answersIds: [],
-      userId: userId, // Add the userId to the question model
+      userId: userId
     });
 
     const savedQuestion = await question.save();

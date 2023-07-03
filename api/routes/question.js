@@ -10,7 +10,7 @@ const {
 
 router.post("/question", authMiddleware, INSERT_QUESTION);
 router.get("/questions",  GET_ALL_QUESTIONS);
-router.delete("/questions/:questionId", authMiddleware, DELETE_QUESTION_BY_ID);
+router.delete("/questions/:id", authMiddleware, DELETE_QUESTION_BY_ID);
 
 
 module.exports = router;
