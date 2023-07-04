@@ -35,6 +35,11 @@ module.exports.GET_ALL_QUESTIONS = async (req, res) => {
   res.status(200).json({ questionGroup: questionGroup });
 };
 
+module.exports.GET_QUESTION_BY_ID = async (req, res) => {
+  const question = await QuestionModel.find({ id: req.params.id });
+  res.status(200).json({ response: question });
+};
+
 module.exports.DELETE_QUESTION_BY_ID = async (req, res) => {
   await QuestionModel.deleteOne({ id: req.params.id });
   res.status(200).json({ response: "Question was deleted" });

@@ -14,12 +14,13 @@ module.exports.POST_ANSWER_BY_QUESTION_ID = async (req, res) => {
 
   const savedAnswer = await answer.save();
 
-  QuestionModel.updateOne(
+  const updatedQuestion = await QuestionModel.findOneAndUpdate(
     { id: req.body.questionId },
-    { $push: { answersIds: savedAnswer.id } }
+    { $push: { answersIds: savedAnswer.id } },
+    { new: true } 
   ).exec();
 
-  res.status(200).json({ response: savedAnswer });
+  res.status(200).json({ response: updatedQuestion });
 };
 
 
